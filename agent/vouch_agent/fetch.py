@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import gzip
 import hashlib
 import io
 import json
@@ -72,7 +73,13 @@ def previous_fixture_version(name: str, version: str) -> str | None:
 
 def fixture_archive_bytes(path: Path) -> bytes:
     buffer = io.BytesIO()
-    with tarfile.open(fileobj=buffer, mode="w:gz") as tar:
+    with gzip.GzipFile(fileobj=buffer, mode="wb", mtime=0) as gzip_file:
+        _write_fixture_tar(path, gzip_file)
+    return buffer.getvalue()
+
+
+def _write_fixture_tar(path: Path, fileobj) -> None:
+    with tarfile.open(fileobj=fileobj, mode="w") as tar:
         for file_path in sorted(path.rglob("*")):
             if not file_path.is_file():
                 continue
@@ -83,7 +90,6 @@ def fixture_archive_bytes(path: Path) -> bytes:
             info.mtime = 0
             with file_path.open("rb") as handle:
                 tar.addfile(info, handle)
-    return buffer.getvalue()
 
 
 def load_package(name: str, version: str) -> PackageSource:
@@ -161,4 +167,3 @@ def copy_tree_to_temp(path: Path) -> tempfile.TemporaryDirectory[str]:
     temp = tempfile.TemporaryDirectory(prefix="vouch-copy-")
     shutil.copytree(path, Path(temp.name) / "package")
     return temp
-

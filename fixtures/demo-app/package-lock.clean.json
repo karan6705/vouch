@@ -16,34 +16,34 @@
     "node_modules/left-padder": {
       "version": "1.0.1",
       "resolved": "fixture:left-padder-1.0.1.tgz",
-      "integrity": "sha512-wT9w2kDYo20IZ38hO59VEfy29AQY/vQmEh5gj+R9013Xjfd0SjfTzMbzUdQ89hDkE0oX2UlQtzqq3PGLB+4nHg=="
+      "integrity": "sha512-XdXe/IHqWFATsOr6gYCNOh0D8qoxQ6nb7I8CeXqHDx+pwwJzWUpIP/PJLNFD/WABOGoK21RUWuAba9AkF0z6WA=="
     },
     "node_modules/color-tones": {
       "version": "2.3.0",
       "resolved": "fixture:color-tones-2.3.0.tgz",
-      "integrity": "sha512-OAlcYmc/XnJONmfH852qYqKdmpivRywxEqq1E6t0JfnwAGg7Zw/4Q59PdTLy471CCv5uCc251Q/ImfnhA/40HA=="
+      "integrity": "sha512-WUZIgcyEUBpJ0pYBI6A+15Sc8QEDaEf964CI8Lh3eB7Fgs6binXktL+RHJ109pjipNueUzwqXYIo/qbLAzY3eg=="
     },
     "node_modules/date-fmt-lite": {
       "version": "0.4.0",
       "resolved": "fixture:date-fmt-lite-0.4.0.tgz",
-      "integrity": "sha512-BUzDi5/qt3GSr4tYk3GiGD78FWUrzEbUqJU4qEXCNEbIQ9OTYDw6B5ihJ1bdJlUPz68i4O5da0C2V/gTlEvYUA=="
+      "integrity": "sha512-rEM6o0a4bvG5mu5DxVyUv41FZyh3QxFyIZTQUyAGPUy7VCUDKEY8lejHlujl37+ICPuajbMTwhCllaoLIY2tlQ=="
     }
   },
   "dependencies": {
     "left-padder": {
       "version": "1.0.1",
       "resolved": "fixture:left-padder-1.0.1.tgz",
-      "integrity": "sha512-wT9w2kDYo20IZ38hO59VEfy29AQY/vQmEh5gj+R9013Xjfd0SjfTzMbzUdQ89hDkE0oX2UlQtzqq3PGLB+4nHg=="
+      "integrity": "sha512-XdXe/IHqWFATsOr6gYCNOh0D8qoxQ6nb7I8CeXqHDx+pwwJzWUpIP/PJLNFD/WABOGoK21RUWuAba9AkF0z6WA=="
     },
     "color-tones": {
       "version": "2.3.0",
       "resolved": "fixture:color-tones-2.3.0.tgz",
-      "integrity": "sha512-OAlcYmc/XnJONmfH852qYqKdmpivRywxEqq1E6t0JfnwAGg7Zw/4Q59PdTLy471CCv5uCc251Q/ImfnhA/40HA=="
+      "integrity": "sha512-WUZIgcyEUBpJ0pYBI6A+15Sc8QEDaEf964CI8Lh3eB7Fgs6binXktL+RHJ109pjipNueUzwqXYIo/qbLAzY3eg=="
     },
     "date-fmt-lite": {
       "version": "0.4.0",
       "resolved": "fixture:date-fmt-lite-0.4.0.tgz",
-      "integrity": "sha512-BUzDi5/qt3GSr4tYk3GiGD78FWUrzEbUqJU4qEXCNEbIQ9OTYDw6B5ihJ1bdJlUPz68i4O5da0C2V/gTlEvYUA=="
+      "integrity": "sha512-rEM6o0a4bvG5mu5DxVyUv41FZyh3QxFyIZTQUyAGPUy7VCUDKEY8lejHlujl37+ICPuajbMTwhCllaoLIY2tlQ=="
     }
   }
 }
