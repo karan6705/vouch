@@ -61,11 +61,11 @@ export default function CheckPage() {
           <Card className="p-5">
             <SectionTitle kicker="Fast demo" title="Run a known scenario" copy="Use these first when pitching. They show the pass and block paths without requiring pasted JSON." />
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
-              <button onClick={() => runCheck("clean")} disabled={busy} className="flex items-center justify-between rounded-md border border-emerald-400/25 bg-emerald-400/10 px-4 py-3 text-left text-sm font-semibold text-emerald-100 hover:bg-emerald-400/15 disabled:opacity-60">
+              <button onClick={() => runCheck("clean")} disabled={busy} className="flex items-center justify-between rounded-md border border-emerald-200 bg-emerald-50 px-4 py-3 text-left text-sm font-semibold text-emerald-700 hover:bg-emerald-100 disabled:opacity-60">
                 Clean app passes
                 <CheckCircle2 size={18} />
               </button>
-              <button onClick={() => runCheck("compromised")} disabled={busy} className="flex items-center justify-between rounded-md border border-rose-400/25 bg-rose-400/10 px-4 py-3 text-left text-sm font-semibold text-rose-100 hover:bg-rose-400/15 disabled:opacity-60">
+              <button onClick={() => runCheck("compromised")} disabled={busy} className="flex items-center justify-between rounded-md border border-rose-200 bg-rose-50 px-4 py-3 text-left text-sm font-semibold text-rose-700 hover:bg-rose-100 disabled:opacity-60">
                 Compromised app blocks
                 <ShieldX size={18} />
               </button>
@@ -78,18 +78,18 @@ export default function CheckPage() {
               value={text}
               onChange={(event) => setText(event.target.value)}
               placeholder="Paste package-lock.json here."
-              className="h-72 w-full resize-none rounded-md border border-slate-700 bg-slate-950 p-4 text-sm text-slate-100 outline-none focus:border-blue-400"
+              className="h-72 w-full resize-none rounded-md border border-slate-200 bg-white p-4 text-sm text-slate-950 outline-none focus:border-blue-400"
             />
             <button
               onClick={() => runCheck("pasted")}
               disabled={busy || !text.trim()}
-              className="mt-4 flex w-full items-center justify-center gap-2 rounded-md bg-blue-500 px-4 py-3 font-semibold text-white hover:bg-blue-400 disabled:cursor-not-allowed disabled:bg-slate-700"
+              className="mt-4 flex w-full items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-3 font-semibold text-white hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-slate-300"
             >
               {busy && mode === "pasted" ? <Loader2 size={18} className="animate-spin" /> : <FileJson size={18} />}
               Check pasted lockfile
             </button>
             {error && (
-              <div className="mt-4 flex items-start gap-3 rounded-md border border-amber-400/25 bg-amber-400/10 p-3 text-sm text-amber-100">
+              <div className="mt-4 flex items-start gap-3 rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-700">
                 <AlertTriangle size={18} className="mt-0.5 shrink-0" />
                 {error}
               </div>
@@ -98,10 +98,10 @@ export default function CheckPage() {
         </div>
 
         <Card className="overflow-hidden">
-          <div className="flex flex-col gap-3 border-b border-slate-800 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-3 border-b border-slate-200 bg-slate-50 p-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-300">Policy result</p>
-              <h2 className="mt-2 text-2xl font-semibold">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-600">Policy result</p>
+              <h2 className="mt-2 text-2xl font-semibold text-slate-950">
                 {busy ? "Checking..." : failed === null ? "Awaiting scan" : failed ? "Blocked before install" : "Safe to continue"}
               </h2>
             </div>
@@ -109,13 +109,13 @@ export default function CheckPage() {
           </div>
 
           {!rows.length && !busy ? (
-            <div className="p-8 text-sm leading-6 text-slate-400">
+            <div className="p-8 text-sm leading-6 text-slate-600">
               Run one of the demo checks to see the dependency table, auditor count and policy decision.
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full min-w-[760px] text-left text-sm">
-                <thead className="bg-slate-900 text-slate-400">
+                <thead className="bg-slate-50 text-slate-500">
                   <tr>
                     <th className="p-4">Package</th>
                     <th className="p-4">Version</th>
@@ -125,15 +125,15 @@ export default function CheckPage() {
                     <th className="p-4">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody className="divide-y divide-slate-100">
                   {rows.map((row) => (
                     <tr key={`${row.package}-${row.version}`}>
-                      <td className="p-4 font-semibold text-white">{row.package}</td>
-                      <td className="p-4 text-slate-300">{row.version}</td>
+                      <td className="p-4 font-semibold text-slate-950">{row.package}</td>
+                      <td className="p-4 text-slate-600">{row.version}</td>
                       <td className="p-4"><Badge value={row.verdict} /></td>
-                      <td className="p-4 text-slate-300">{row.score ?? ""}</td>
-                      <td className="p-4 text-slate-300">{row.auditors}</td>
-                      <td className={row.status === "Blocked" ? "p-4 font-semibold text-rose-300" : "p-4 font-semibold text-emerald-300"}>{row.status}</td>
+                      <td className="p-4 text-slate-600">{row.score ?? ""}</td>
+                      <td className="p-4 text-slate-600">{row.auditors}</td>
+                      <td className={row.status === "Blocked" ? "p-4 font-semibold text-rose-700" : "p-4 font-semibold text-emerald-700"}>{row.status}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -145,4 +145,3 @@ export default function CheckPage() {
     </>
   );
 }
-

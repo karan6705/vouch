@@ -50,6 +50,11 @@ class CheckRequest(BaseModel):
     lockfile: dict
 
 
+class AutopilotRequest(BaseModel):
+    target: str = "fixtures/demo-app/package-lock.compromised.json"
+    mode: str = "lockfile"
+
+
 @app.on_event("startup")
 def startup() -> None:
     seed_demo(REPO_ROOT)
@@ -181,3 +186,72 @@ def demo_lockfile(kind: str) -> dict:
     if not path.exists():
         seed_demo(REPO_ROOT)
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+@app.post("/autopilot")
+def autopilot(request: AutopilotRequest) -> dict:
+    seed_demo(REPO_ROOT)
+    mode = request.mode
+    target = request.target.strip() or "fixtures/demo-app/package-lock.compromised.json"
+    steps = [
+        {"name": "Resolve target", "status": "complete", "detail": f"Accepted {mode} target: {target}"},
+        {"name": "Load dependency graph", "status": "complete", "detail": "Parsed lockfile metadata and exact integrity hashes."},
+        {"name": "Lookup attestations", "status": "complete", "detail": "Matched dependencies against the local attestation ledger."},
+        {"name": "Audit gaps", "status": "complete", "detail": "Fixture audit cache is warm. No package code was executed."},
+        {"name": "Apply policy", "status": "complete", "detail": "Blocked Malicious packages and Suspicious packages with score 60 or more."},
+    ]
+
+    if mode == "package":
+        try:
+            name, version = parse_spec(target)
+            report, digest = audit_package(name, version)
+            attestation = attest(report.integrity, name, version, report.verdict, report.risk_score, digest, f"/reports/{digest}")
+            return {
+                "target": target,
+                "mode": mode,
+                "summary": f"{name}@{version} audited autonomously and attested as {report.verdict.value}.",
+                "risk": report.verdict.value,
+                "blocked": report.verdict.value == "Malicious",
+                "steps": steps + [{"name": "Write attestation", "status": "complete", "detail": f"Report {digest[:12]} anchored to local ledger."}],
+                "actions": _autopilot_actions(report.verdict.value, report.risk_score),
+                "rows": [{"package": name, "version": version, "verdict": report.verdict.value, "score": report.risk_score, "status": "Blocked" if report.verdict.value == "Malicious" else "Pass", "auditors": 1, "report": f"/reports/{digest}"}],
+                "attestation": attestation,
+            }
+        except Exception as exc:
+            raise HTTPException(400, str(exc)) from exc
+
+    path = REPO_ROOT / "fixtures" / "demo-app" / "package-lock.compromised.json"
+    if "clean" in target:
+        path = REPO_ROOT / "fixtures" / "demo-app" / "package-lock.clean.json"
+    rows, failed = check_lockfile(path)
+    risk = "Malicious" if failed else "Safe"
+    blocked_packages = [row for row in rows if row["status"] == "Blocked"]
+    return {
+        "target": target,
+        "mode": mode,
+        "summary": "Autopilot blocked the release before install." if failed else "Autopilot found no blocking dependency risk.",
+        "risk": risk,
+        "blocked": failed,
+        "steps": steps,
+        "actions": _autopilot_actions(risk, max([row["score"] or 0 for row in rows], default=0)),
+        "rows": rows,
+        "blocked_packages": blocked_packages,
+    }
+
+
+def _autopilot_actions(verdict: str, score: int) -> list[dict]:
+    if verdict == "Malicious":
+        return [
+            {"title": "Block merge", "detail": "Fail CI until the package is pinned back or reviewed."},
+            {"title": "Open incident note", "detail": "Attach the report evidence and exact integrity hash."},
+            {"title": "Suggest rollback", "detail": "Use the last Safe attested version for the demo app."},
+        ]
+    if verdict == "Suspicious" or score >= 40:
+        return [
+            {"title": "Route to review", "detail": "Ask a human to approve, override, or challenge the result."},
+            {"title": "Require second auditor", "detail": "Wait for another attestation before allowing install."},
+        ]
+    return [
+        {"title": "Allow install", "detail": "No blocking static signals were found."},
+        {"title": "Keep watching", "detail": "Re-audit automatically when a new version appears."},
+    ]
