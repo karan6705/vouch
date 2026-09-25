@@ -1,0 +1,20 @@
+name: Vouch dependency check
+description: Check package-lock.json against Vouch attestations.
+inputs:
+  lockfile:
+    description: Path to package-lock.json
+    required: true
+    default: package-lock.json
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+    - run: pip install -e .
+      shell: bash
+    - run: vouch seed
+      shell: bash
+    - run: vouch check "${{ inputs.lockfile }}"
+      shell: bash
+

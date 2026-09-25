@@ -1,0 +1,11 @@
+{
+  "name": "vouch-demo-app",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "left-padder": "1.0.1",
+    "color-tones": "2.3.0",
+    "date-fmt-lite": "0.4.0"
+  }
+}
+

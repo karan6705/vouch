@@ -1,0 +1,8 @@
+{
+  "name": "date-fmt-lite",
+  "version": "0.4.0",
+  "description": "Small date formatting fixture.",
+  "main": "index.js",
+  "maintainer": "devon"
+}
+

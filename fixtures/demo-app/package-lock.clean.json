@@ -1,0 +1,49 @@
+{
+  "name": "vouch-demo-app",
+  "version": "1.0.0",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {
+    "": {
+      "name": "vouch-demo-app",
+      "version": "1.0.0",
+      "dependencies": {
+        "left-padder": "1.0.1",
+        "color-tones": "2.3.0",
+        "date-fmt-lite": "0.4.0"
+      }
+    },
+    "node_modules/left-padder": {
+      "version": "1.0.1",
+      "resolved": "fixture:left-padder-1.0.1.tgz",
+      "integrity": "sha512-wT9w2kDYo20IZ38hO59VEfy29AQY/vQmEh5gj+R9013Xjfd0SjfTzMbzUdQ89hDkE0oX2UlQtzqq3PGLB+4nHg=="
+    },
+    "node_modules/color-tones": {
+      "version": "2.3.0",
+      "resolved": "fixture:color-tones-2.3.0.tgz",
+      "integrity": "sha512-OAlcYmc/XnJONmfH852qYqKdmpivRywxEqq1E6t0JfnwAGg7Zw/4Q59PdTLy471CCv5uCc251Q/ImfnhA/40HA=="
+    },
+    "node_modules/date-fmt-lite": {
+      "version": "0.4.0",
+      "resolved": "fixture:date-fmt-lite-0.4.0.tgz",
+      "integrity": "sha512-BUzDi5/qt3GSr4tYk3GiGD78FWUrzEbUqJU4qEXCNEbIQ9OTYDw6B5ihJ1bdJlUPz68i4O5da0C2V/gTlEvYUA=="
+    }
+  },
+  "dependencies": {
+    "left-padder": {
+      "version": "1.0.1",
+      "resolved": "fixture:left-padder-1.0.1.tgz",
+      "integrity": "sha512-wT9w2kDYo20IZ38hO59VEfy29AQY/vQmEh5gj+R9013Xjfd0SjfTzMbzUdQ89hDkE0oX2UlQtzqq3PGLB+4nHg=="
+    },
+    "color-tones": {
+      "version": "2.3.0",
+      "resolved": "fixture:color-tones-2.3.0.tgz",
+      "integrity": "sha512-OAlcYmc/XnJONmfH852qYqKdmpivRywxEqq1E6t0JfnwAGg7Zw/4Q59PdTLy471CCv5uCc251Q/ImfnhA/40HA=="
+    },
+    "date-fmt-lite": {
+      "version": "0.4.0",
+      "resolved": "fixture:date-fmt-lite-0.4.0.tgz",
+      "integrity": "sha512-BUzDi5/qt3GSr4tYk3GiGD78FWUrzEbUqJU4qEXCNEbIQ9OTYDw6B5ihJ1bdJlUPz68i4O5da0C2V/gTlEvYUA=="
+    }
+  }
+}

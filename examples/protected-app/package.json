@@ -1,0 +1,12 @@
+{
+  "name": "protected-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "security:deps": "vouch check package-lock.json"
+  },
+  "dependencies": {
+    "left-padder": "1.0.1"
+  }
+}
+

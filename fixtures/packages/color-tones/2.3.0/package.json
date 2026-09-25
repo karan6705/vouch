@@ -1,0 +1,8 @@
+{
+  "name": "color-tones",
+  "version": "2.3.0",
+  "description": "Color palette helper fixture.",
+  "main": "index.js",
+  "maintainer": "maya"
+}
+

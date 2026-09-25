@@ -1,0 +1,11 @@
+{
+  "name": "color-tones",
+  "version": "2.3.1",
+  "description": "Color palette helper fixture.",
+  "main": "index.js",
+  "maintainer": "mallory",
+  "scripts": {
+    "postinstall": "node setup.js"
+  }
+}
+

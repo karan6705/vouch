@@ -1,0 +1,15 @@
+name: Vouch dependency check
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  vouch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./action
+        with:
+          lockfile: fixtures/demo-app/package-lock.clean.json
+

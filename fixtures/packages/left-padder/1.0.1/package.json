@@ -1,0 +1,8 @@
+{
+  "name": "left-padder",
+  "version": "1.0.1",
+  "description": "Tiny fixture utility.",
+  "main": "index.js",
+  "maintainer": "alice"
+}
+
