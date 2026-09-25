@@ -13,7 +13,7 @@ export function Badge({ value }: { value: string }) {
 }
 
 export function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return <section className={`rounded-lg border border-slate-700/70 bg-slate-950/55 shadow-2xl shadow-black/10 ${className}`}>{children}</section>;
+  return <section className={`rounded-lg border border-slate-700/70 bg-slate-950/60 shadow-2xl shadow-black/10 ${className}`}>{children}</section>;
 }
 
 export function Button({ children, className = "", ...props }: React.ButtonHTMLAttributes<HTMLButtonElement>) {
@@ -36,3 +36,12 @@ export function PageHeader({ title, eyebrow, action }: { title: string; eyebrow:
   );
 }
 
+export function SectionTitle({ kicker, title, copy }: { kicker: string; title: string; copy?: string }) {
+  return (
+    <div className="mb-4">
+      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-300">{kicker}</p>
+      <h2 className="mt-2 text-2xl font-semibold text-white">{title}</h2>
+      {copy && <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">{copy}</p>}
+    </div>
+  );
+}
