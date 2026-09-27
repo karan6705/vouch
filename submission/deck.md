@@ -38,7 +38,7 @@ style: |
 
 ## Agentic AI + Blockchain + Open Source
 
-Your app trusts code written by strangers and updated automatically. Vouch reads every package update before install, explains what it found, and anchors the verdict on Hyperledger Besu.
+Your app trusts code written by strangers and updated automatically. Vouch reads every package update before install, explains what it found, and binds the verdict to the exact package bytes. The offline MVP runs on a local ledger with a Besu-ready registry contract.
 
 ---
 
@@ -70,7 +70,7 @@ Your app trusts code written by strangers and updated automatically. Vouch reads
 ## Solution
 
 1. **Audit agent:** diff-first static review with deterministic detectors and a tool-using investigator.
-2. **Attestation registry:** verdicts keyed by npm integrity hash and anchored on Hyperledger Besu.
+2. **Attestation registry:** verdicts keyed by npm integrity hash, recorded locally in the MVP and modeled for Hyperledger Besu deployment.
 3. **CLI and GitHub Action:** `vouch check` blocks risky lockfile entries in CI.
 
 ---
@@ -88,13 +88,13 @@ Your app trusts code written by strangers and updated automatically. Vouch reads
 
 ---
 
-# Architecture keeps heavy evidence off-chain and trust on-chain.
+# Architecture keeps heavy evidence off-chain and the trust record portable.
 
 ## System
 
-Registry or fixtures -> fetch and verify -> diff -> detectors -> agent tools -> canonical report -> report hash -> Besu attestation -> CLI, API and dashboard.
+Registry or fixtures -> fetch and verify -> diff -> detectors -> agent tools -> canonical report -> report hash -> local ledger or Besu registry -> CLI, API and dashboard.
 
-Only hash, verdict, score, auditor and URI go on-chain. Reports stay off-chain and are independently hashable.
+For the Besu path, only the hash, verdict, score, auditor and URI go on-chain. Reports stay off-chain and are independently hashable. The local MVP demonstrates the same data contract without claiming a live chain deployment.
 
 ---
 
@@ -111,12 +111,12 @@ Only hash, verdict, score, auditor and URI go on-chain. Reports stay off-chain a
 
 # The blockchain layer creates shared accountability.
 
-## Besu registry
+## Besu-ready registry
 
 - Verdicts bind to `sha512-...` integrity, not package names.
-- Auditors stake before attesting.
-- Challenges can uphold or overturn attestations.
-- Wrong auditors lose reputation and demo stake.
+- The included Solidity contract models auditor attestations and challenges.
+- A live multi-auditor network is the next deployment step.
+- The demo already exercises the ledger, challenge and reputation flows locally.
 
 ---
 
@@ -167,4 +167,3 @@ Only hash, verdict, score, auditor and URI go on-chain. Reports stay off-chain a
 - Publish `vouch-audit` package.
 
 Team: Karan Raval.
-

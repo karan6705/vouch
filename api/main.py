@@ -193,6 +193,8 @@ def autopilot(request: AutopilotRequest) -> dict:
     seed_demo(REPO_ROOT)
     mode = request.mode
     target = request.target.strip() or "fixtures/demo-app/package-lock.compromised.json"
+    if mode == "repo":
+        raise HTTPException(501, "Repository scanning is planned but not implemented in this local MVP. Use package or lockfile mode.")
     steps = [
         {"name": "Resolve target", "status": "complete", "detail": f"Accepted {mode} target: {target}"},
         {"name": "Load dependency graph", "status": "complete", "detail": "Parsed lockfile metadata and exact integrity hashes."},

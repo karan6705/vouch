@@ -44,7 +44,7 @@ const judgeCriteria = [
   ["Impact", "Every modern Node app depends on code it did not write."],
   ["Feasibility", "Working CLI, API, dashboard, reports and contract source."],
   ["Novelty", "Verdicts bind to exact bytes and cite file-line evidence."],
-  ["Architecture", "Agent, report store, attestation ledger, CLI and dashboard."],
+  ["Architecture", "Agent, report store, local attestation ledger, contract source, CLI and dashboard."],
   ["Revenue", "Open core, team cloud, compliance packs, auditor marketplace."],
 ];
 
@@ -103,7 +103,7 @@ export default function Home() {
 
   return (
     <div className="grid gap-6">
-      <section className="overflow-hidden rounded-xl border border-blue-100 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.16),transparent_34rem),linear-gradient(135deg,#ffffff,#eef6ff)] p-6 shadow-2xl shadow-blue-100/70 md:p-8">
+      <section className="motion-rise overflow-hidden rounded-xl border border-blue-100 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.16),transparent_34rem),linear-gradient(135deg,#ffffff,#eef6ff)] p-6 shadow-2xl shadow-blue-100/70 md:p-8">
         <div className="grid gap-8 xl:grid-cols-[1fr_27rem] xl:items-end">
           <div>
             <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-blue-700">
@@ -116,6 +116,9 @@ export default function Home() {
             <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
               Vouch audits dependency updates, explains risky code with evidence, and records exact-byte verdicts so teams can block attacks before install.
             </p>
+            <div className="mt-5 max-w-3xl rounded-md border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-800">
+              MVP status: this demo uses a local attestation ledger for reliability. The Solidity registry source is included for the Hyperledger Besu path, but Besu deployment is not claimed as completed here.
+            </div>
             <div className="mt-7 flex flex-wrap gap-3">
               <button onClick={runDemo} disabled={busy} className="inline-flex items-center gap-2 rounded-md bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-200 hover:bg-blue-500 disabled:opacity-70">
                 {busy ? <Loader2 size={18} className="animate-spin" /> : <Play size={18} />}
@@ -129,11 +132,11 @@ export default function Home() {
             {error && <p className="mt-4 text-sm font-semibold text-rose-700">{error}</p>}
           </div>
 
-          <Card className="p-5">
+          <Card className="motion-float p-5">
             <SectionTitle kicker="Live demo result" title={result ? result.summary : "One click runs the release gate"} />
             <div className="grid gap-3">
               <MiniStatus label="Autonomy" value="Agent handles triage" icon={<Bot size={18} />} />
-              <MiniStatus label="Theme fit" value="AI + Web3 + Open Source" icon={<Sparkles size={18} />} />
+              <MiniStatus label="Theme fit" value="Agentic AI, Web3 path, open source" icon={<Sparkles size={18} />} />
               <MiniStatus label="Human effort" value="Only reviews edge cases" icon={<Users size={18} />} />
             </div>
             {result && (
@@ -149,18 +152,18 @@ export default function Home() {
       </section>
 
       <div className="grid gap-4 md:grid-cols-4">
-        <Metric label="Safe versions" value={String(stats.safe)} tone="green" />
-        <Metric label="Blocked" value={String(stats.malicious)} tone="red" />
-        <Metric label="Needs review" value={String(stats.suspicious)} tone="amber" />
-        <Metric label="Attestations" value={String(stats.attestations)} />
+        <Metric label="Safe versions" value={String(stats.safe)} tone="green" delay="motion-delay-1" />
+        <Metric label="Blocked" value={String(stats.malicious)} tone="red" delay="motion-delay-2" />
+        <Metric label="Needs review" value={String(stats.suspicious)} tone="amber" delay="motion-delay-3" />
+        <Metric label="Attestations" value={String(stats.attestations)} delay="motion-delay-4" />
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1fr_25rem]">
         <Card className="p-5">
           <SectionTitle kicker="Autonomous workflow" title="What Vouch does for the user" copy="The pitch is simple: developers should not manually inspect every dependency diff. Vouch turns that work into a repeatable release gate." />
-          <div className="grid gap-3 md:grid-cols-5">
+          <div className="motion-flow grid gap-3 md:grid-cols-5">
             {architecture.map(([title, copy], index) => (
-              <div key={title} className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+              <div key={title} className={`motion-rise rounded-lg border border-slate-200 bg-slate-50 p-4 motion-delay-${Math.min(index + 1, 5)}`}>
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white">{index + 1}</span>
                 <h3 className="mt-4 font-semibold text-slate-950">{title}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-600">{copy}</p>
@@ -194,7 +197,7 @@ export default function Home() {
           <div className="grid gap-6 p-5 xl:grid-cols-[1fr_22rem]">
             <div className="grid gap-3">
               {result.steps.map((step, index) => (
-                <div key={step.name} className="rounded-md border border-slate-200 bg-white p-4">
+                <div key={step.name} className={`motion-rise rounded-md border border-slate-200 bg-white p-4 motion-delay-${Math.min(index + 1, 5)}`}>
                   <div className="flex items-center gap-3">
                     <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-sm font-bold text-emerald-700">{index + 1}</span>
                     <h3 className="font-semibold text-slate-950">{step.name}</h3>
@@ -276,10 +279,10 @@ export default function Home() {
   );
 }
 
-function Metric({ label, value, tone = "blue" }: { label: string; value: string; tone?: "blue" | "red" | "amber" | "green" }) {
+function Metric({ label, value, tone = "blue", delay = "" }: { label: string; value: string; tone?: "blue" | "red" | "amber" | "green"; delay?: string }) {
   const color = tone === "red" ? "text-rose-600" : tone === "amber" ? "text-amber-600" : tone === "green" ? "text-emerald-600" : "text-blue-600";
   return (
-    <Card className="p-5">
+    <Card className={`motion-rise p-5 ${delay}`}>
       <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">{label}</p>
       <p className={`mt-3 text-4xl font-bold ${color}`}>{value}</p>
     </Card>
@@ -288,7 +291,7 @@ function Metric({ label, value, tone = "blue" }: { label: string; value: string;
 
 function MiniStatus({ label, value, icon }: { label: string; value: string; icon: React.ReactNode }) {
   return (
-    <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
+    <div className="motion-scan rounded-md border border-slate-200 bg-slate-50 p-3">
       <div className="flex items-center gap-2 text-blue-700">{icon}<span className="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">{label}</span></div>
       <p className="mt-2 text-sm font-semibold text-slate-800">{value}</p>
     </div>
@@ -330,4 +333,3 @@ function AssetLine({ icon, title, copy }: { icon: React.ReactNode; title: string
     </div>
   );
 }
-

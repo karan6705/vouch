@@ -2,11 +2,11 @@
 
 ## Why blockchain and not a database?
 
-Multiple auditors and consumers need a shared record that no single company can quietly rewrite. Reports stay off-chain. Only hashes, verdicts and pointers go on-chain.
+Multiple auditors and consumers need a shared record that no single company can quietly rewrite. The MVP demonstrates that record with a deterministic local ledger; the included Solidity contract is the path to a shared Hyperledger Besu deployment. Reports stay off-chain, while only hashes, verdicts and pointers would go on-chain.
 
 ## What does it cost per attestation?
 
-The local demo uses Besu-style development accounts and no real tokens. On a public testnet or L2, each attestation stores small fixed-size fields plus a URI, so costs are low compared with putting reports on-chain.
+The local demo uses no real tokens and records attestations in JSON for offline reliability. On a Besu network or public L2, each attestation would store small fixed-size fields plus a URI, so costs stay low compared with putting reports on-chain.
 
 ## What about false positives?
 
@@ -35,4 +35,3 @@ Consumers can require multiple distinct auditors. Challenges and slashing make p
 ## How is this different from Socket, Snyk or Sigstore?
 
 Vouch combines exact-byte attestations, cited agent evidence, public challengeable verdicts, and an open-source CLI.
-

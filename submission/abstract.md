@@ -1,6 +1,6 @@
 # The Idea
 
-Vouch is an agentic auditing system for open-source packages. It checks npm package updates before developers install them, explains the risky code it found, and anchors the verdict on Hyperledger Besu so the record cannot quietly change.
+Vouch is an agentic auditing system for open-source packages. It checks npm package updates before developers install them, explains the risky code it found, and binds the verdict to an exact package integrity hash. The offline MVP uses a local attestation ledger; its Solidity registry is the Besu-ready path for shared deployment.
 
 # Problem and Real-World Impact
 
@@ -18,9 +18,8 @@ Vouch binds verdicts to exact tarball integrity hashes, not package names. A saf
 
 # Architecture
 
-The audit agent fetches and verifies a package, creates a diff, runs detectors, investigates flagged code with tools, validates evidence, and writes a canonical JSON report. The report hash, verdict, risk score and URI are attested by an auditor on Hyperledger Besu. The CLI and GitHub Action check a project lockfile against those attestations. The dashboard shows the live audit feed, package evidence, review queue, auditor leaderboard, lockfile checks and challenge flow.
+The audit agent fetches and verifies a package, creates a diff, runs detectors, investigates flagged code with tools, validates evidence, and writes a canonical JSON report. The report hash, verdict, risk score and URI are recorded by the MVP ledger and modeled by the Besu registry contract for multi-auditor deployment. The CLI and GitHub Action check a project lockfile against those attestations. The dashboard shows the live audit feed, package evidence, review queue, auditor leaderboard, lockfile checks and challenge flow.
 
 # Revenue Model
 
 Vouch is open core. The CLI, GitHub Action and public lookups are free. Vouch Cloud sells private registry scanning, organization policies, dashboards and alerts per repository per month. A compliance tier exports SBOM and attestation evidence packs. An auditor marketplace lets companies post bounties for critical dependency reviews, with Vouch taking a platform fee.
-

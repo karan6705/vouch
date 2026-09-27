@@ -17,7 +17,7 @@ type AutopilotResult = {
 };
 
 export default function AutopilotPage() {
-  const [mode, setMode] = useState<"lockfile" | "package" | "repo">("lockfile");
+  const [mode, setMode] = useState<"lockfile" | "package">("lockfile");
   const [target, setTarget] = useState("fixtures/demo-app/package-lock.compromised.json");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -56,7 +56,7 @@ export default function AutopilotPage() {
         }
       />
 
-      <section className="mb-6 rounded-lg border border-blue-100 bg-gradient-to-br from-white to-blue-50 p-6 shadow-xl shadow-blue-100/50">
+      <section className="motion-rise mb-6 rounded-lg border border-blue-100 bg-gradient-to-br from-white to-blue-50 p-6 shadow-xl shadow-blue-100/50">
         <div className="grid gap-6 xl:grid-cols-[1fr_26rem] xl:items-end">
           <div>
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white px-3 py-1 text-sm font-semibold text-blue-700">
@@ -70,7 +70,7 @@ export default function AutopilotPage() {
               The goal is fewer manual dependency reviews. Autopilot turns a package or lockfile into a release decision with evidence, auditor state and recommended follow-up.
             </p>
           </div>
-          <Card className="p-5">
+          <Card className="motion-float p-5">
             <SectionTitle kicker="Try these" title="One-click scenarios" />
             <div className="grid gap-3">
               <ScenarioButton icon={<ShieldX size={18} />} title="Block compromised lockfile" onClick={() => runAutopilot("lockfile", "fixtures/demo-app/package-lock.compromised.json")} />
@@ -83,9 +83,9 @@ export default function AutopilotPage() {
 
       <div className="grid gap-5 xl:grid-cols-[26rem_1fr]">
         <Card className="p-5">
-          <SectionTitle kicker="Input" title="Target" copy="Use a package spec, a demo lockfile path, or a public repo URL for the pitch narrative." />
-          <div className="grid grid-cols-3 gap-2 rounded-md bg-slate-100 p-1 text-sm font-semibold">
-            {(["lockfile", "package", "repo"] as const).map((item) => (
+          <SectionTitle kicker="Input" title="Target" copy="Use a package spec or one of the demo lockfile paths. Public repo scanning is a documented roadmap item, not part of this local MVP." />
+          <div className="grid grid-cols-2 gap-2 rounded-md bg-slate-100 p-1 text-sm font-semibold">
+            {(["lockfile", "package"] as const).map((item) => (
               <button key={item} onClick={() => setMode(item)} className={item === mode ? "rounded bg-white px-3 py-2 text-blue-700 shadow" : "rounded px-3 py-2 text-slate-600"}>
                 {item}
               </button>
@@ -120,7 +120,7 @@ export default function AutopilotPage() {
                 <SectionTitle kicker="Execution trace" title="Autopilot steps" />
                 <div className="grid gap-3">
                   {result.steps.map((step, index) => (
-                    <div key={`${step.name}-${index}`} className="rounded-md border border-slate-200 bg-white p-4">
+                    <div key={`${step.name}-${index}`} className={`motion-rise rounded-md border border-slate-200 bg-white p-4 motion-delay-${Math.min(index + 1, 5)}`}>
                       <div className="flex items-center gap-3">
                         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-700">{index + 1}</span>
                         <h3 className="font-semibold text-slate-950">{step.name}</h3>
@@ -186,4 +186,3 @@ function EmptyFeature({ icon, title, copy }: { icon: React.ReactNode; title: str
     </div>
   );
 }
-
